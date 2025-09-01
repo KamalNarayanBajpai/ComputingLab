@@ -1,0 +1,56 @@
+
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+  }
+  .container {
+    display: flex;
+    height: 100vh;
+  }
+  #editor {
+    width: 50%;
+    padding: 12px;
+    border-right: 1px solid #ccc;
+    font-size: 16px;
+    resize: none;
+  }
+  #preview {
+    width: 50%;
+    padding: 12px;
+    font-size: 20px;
+    line-height: 1.6;
+    white-space: pre-wrap; /* preserve line breaks */
+  }
+  .integral {
+    font-size: 28px;
+    display: inline-block;
+    position: relative;
+    vertical-align: middle;
+    margin: 0 6px;
+  }
+  .integral sub {
+    position: absolute;
+    top: 28px;
+    left: 4px;
+    font-size: 12px;
+  }
+  .integral sup {
+    position: absolute;
+    bottom: 28px;
+    left: 4px;
+    font-size: 12px;
+  }
+  .frac {
+    display: inline-block;
+    text-align: center;
+    vertical-align: middle;
+  }
+  .frac span {
+    display: block;
+    padding: 0 4px;
+  }
+  .frac .den {
+    border-top: 1px solid black;
+  }
+
+
