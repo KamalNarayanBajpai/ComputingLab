@@ -22,7 +22,7 @@ std::string toSuperscript(int n) {
             case '7': result += "⁷"; break;
             case '8': result += "⁸"; break;
             case '9': result += "⁹"; break;
-            case '-': result += "⁻"; break; // Handle negative numbers
+            case '-': result += "⁻"; break; 
         }
     }
     return result;
@@ -55,13 +55,8 @@ void handleSubscript() {
     cin >> base;
     cout << "Enter the subscript value (x): ";
     cin >> x;
-    cout << "\n✅ Result: " << base << toSubscript(x) << endl;
+    cout << "\n Result: " << base << toSubscript(x) << endl;
 }
-
-/**
- * @brief Handles the user's choice to display superscript notation.
- * Prompts for a base and a superscript value.
- */
 void handleSuperscript() {
     std::string base;
     int x;
@@ -72,31 +67,23 @@ void handleSuperscript() {
     std::cout << "\n✅ Result: " << base << toSuperscript(x) << std::endl;
 }
 
-/**
- * @brief Handles the user's choice to display integral notation.
- * Prompts for limits and a function, then displays the format.
- */
 void handleIntegration() {
     int lowerLimit, upperLimit;
     std::string functionStr;
 
-    std::cout << "\nEnter the lower limit: ";
-    std::cin >> lowerLimit;
-    std::cout << "Enter the upper limit: ";
-    std::cin >> upperLimit;
-    std::cout << "Enter the function to integrate (e.g., x^2 + 2x): ";
-    // Clear the input buffer before reading a line of text
-    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-    std::getline(std::cin, functionStr);
+    cout << "\nEnter the lower limit: ";
+    cin >> lowerLimit;
+    cout << "Enter the upper limit: ";
+    cin >> upperLimit;
+    cout << "Enter the function to integrate (e.g., x^2 + 2x): ";
+    
+    cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+    getline(std::cin, functionStr);
 
-    // Display using the integral symbol ∫ (U+222B)
-    std::cout << "\n✅ Result: ∫" << toSuperscript(upperLimit) << toSubscript(lowerLimit)
+    cout << "\n Result: ∫" << toSuperscript(upperLimit) << toSubscript(lowerLimit)
               << " (" << functionStr << ") dx" << std::endl;
 }
 
-/**
- * @brief Displays the main menu to the user.
- */
 void displayMenu() {
     std::cout << "=== Mathematical Formatter ===\n";
     std::cout << "1. Display in Subscript Form (baseₓ)\n";
@@ -109,16 +96,13 @@ void displayMenu() {
 
 int main() {
     int choice = 0;
-
     do {
         displayMenu();
-        std::cin >> choice;
-
-        // Basic input validation to check if the input is a number
+        cin >> choice;
         while (std::cin.fail()) {
             std::cout << " Invalid input. Please enter a number.\n\n";
-            std::cin.clear(); // Clear error flags
-            std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); // Discard bad input
+            std::cin.clear();
+            std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
             displayMenu();
             std::cin >> choice;
         }
@@ -146,6 +130,5 @@ int main() {
         }
 
     } while (choice != 4);
-
     return 0;
 }

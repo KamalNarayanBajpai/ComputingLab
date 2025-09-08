@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Editor for mathematical function</title>
+  <title>code editor work for computing lab 1sept2025</title>
   <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
   <style>
     body {
@@ -30,6 +30,7 @@
     .button-row {
       margin-bottom: 15px;
     }
+
     button {
       margin: 3px 5px 3px 0;
       padding: 8px 12px;
@@ -40,7 +41,6 @@
 </head>
 <body>
   <h2>Enter LaTeX Math Expression:</h2>
-
   <div class="button-row">
     <button onclick="insertLatex('\\int_{}^{}')">∫ Integral</button>
     <button onclick="insertLatex('\\frac{}{}')">Fraction</button>
@@ -65,41 +65,30 @@
 
     function renderMath() {
       const latex = input.value;
-      // Wrap the latex in inline math delimiters
       output.innerHTML = `\\(${latex}\\)`;
       MathJax.typesetPromise([output]);
     }
 
-    // Insert LaTeX snippet at cursor position in textarea
     function insertLatex(latexSnippet) {
       const start = input.selectionStart;
       const end = input.selectionEnd;
       const text = input.value;
       
-      // Insert snippet
       input.value = text.substring(0, start) + latexSnippet + text.substring(end);
       
-      // Place cursor inside the first curly braces if present
       const cursorPos = latexSnippet.indexOf('{}');
       if (cursorPos !== -1) {
-        // Move cursor inside the first pair of braces
         const newPos = start + cursorPos + 1;
         input.focus();
         input.setSelectionRange(newPos, newPos);
       } else {
-        // Place cursor after inserted text
         const newPos = start + latexSnippet.length;
         input.focus();
         input.setSelectionRange(newPos, newPos);
       }
-
       renderMath();
     }
-
-    // Initial render
     renderMath();
-
-    // Update render on input change
     input.addEventListener('input', renderMath);
   </script>
 </body>

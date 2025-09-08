@@ -1,0 +1,95 @@
+\documentclass[12pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{graphicx}
+\usepackage{amsmath, amssymb}
+\usepackage{caption}
+\usepackage{booktabs}
+\usepackage{float}
+\usepackage{geometry}
+\geometry{margin=1in}
+
+\title{Sample Research Paper}
+\author{kamal Narayan Bajpai\\
+	\small Department of CSE, NITK \\
+	\small \texttt{kamal31narayanbajpai@gmail.com}
+}
+\date{\today}
+
+\begin{document}
+	\maketitle
+	\begin{abstract}
+		This is the file for the basic understanding of the tool latex.
+	\end{abstract}
+	
+	\section{Introduction}
+	
+	we can write the content here about the headings 
+	
+	
+	\section{Mathematical Equation writing }
+	Here’s an inline equation: \( E = mc^3 \)
+	
+	And a displayed equation:
+	\begin{equation}
+		\int_0^\infty e^{-x^2} dx = \frac{\sqrt{\pi}}{2}
+		\\label{1}
+	\end{equation}
+	
+	\section{Tables}
+	
+	\subsection{Simple Table}
+	
+	\begin{table}[H]
+		\centering
+		\caption{Sample Data Table}
+		\begin{tabular}{lcc}
+			\toprule
+			Item & Value A & Value B \\
+			\midrule
+			Item 1 & 10 & 20 \\
+			Item 2 & 30 & 40 \\
+			Item 3 & 50 & 60 \\
+			\bottomrule
+		\end{tabular}
+	\end{table}
+	
+	\subsection{Nested Table (Table within Table)}
+	
+	\begin{table}[H]
+		\centering
+		\caption{Main Table with Nested Table}
+		\begin{tabular}{|c|c|}
+			\hline
+			Main Category & Details \\
+			\hline
+			Category A &
+			\begin{minipage}{0.5\textwidth}
+				\centering
+				\begin{tabular}{|c|c|}
+					\hline
+					Sub-item & Value \\
+					\hline
+					A1 & 5 \\
+					A2 & 10 \\
+					\hline
+				\end{tabular}
+			\end{minipage} \\
+			\hline
+			Category B & No nested data \\
+			\hline
+		\end{tabular}
+	\end{table}
+	
+	\section{Images}
+	
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=0.6\textwidth]{example-image} % Replace with your image file
+		\caption{Sample Image from LaTeX's default set}
+	\end{figure}
+	
+	\section{Conclusion}
+	
+	This document demonstrates some of the core features used in writing academic papers with LaTeX.
+	
+\end{document}

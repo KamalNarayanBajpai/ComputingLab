@@ -1,56 +1,236 @@
+* {
+  box-sizing: border-box;
+}
 
 body {
-    margin: 0;
-    font-family: Arial, sans-serif;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  margin: 0;
+  padding: 20px;
+  background-color: #121212;
+  color: #eee;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  min-height: 100vh;
+}
+
+.container {
+  width: 100%;
+  max-width: 1100px;
+  background-color: #1e1e1e;
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: 0 0 20px #000;
+  display: flex;
+  flex-direction: column;
+  height: 90vh;
+}
+
+h1 {
+  text-align: center;
+  font-weight: 700;
+  margin-bottom: 20px;
+  color: #bb86fc;
+  user-select: none;
+}
+
+.main-content {
+  flex: 1;
+  display: flex;
+  gap: 20px;
+  overflow: hidden;
+  border-radius: 10px;
+}
+
+.editor-section {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  background-color: #2c2c2c;
+  padding: 15px;
+  border-radius: 10px;
+  box-shadow: inset 0 0 10px #000;
+}
+
+textarea {
+  flex: 1;
+  font-family: 'Courier New', monospace;
+  font-size: 1.1em;
+  background-color: #121212;
+  color: #eee;
+  border: 2px solid #bb86fc;
+  border-radius: 10px;
+  padding: 15px;
+  resize: vertical;
+  transition: border-color 0.3s ease;
+}
+
+textarea:focus {
+  outline: none;
+  border-color: #cf94ff;
+  box-shadow: 0 0 10px #bb86fc;
+}
+
+.controls {
+  margin-top: 15px;
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+button {
+  background: #3a3a3a;
+  border: none;
+  border-radius: 8px;
+  padding: 10px 15px;
+  font-size: 0.9em;
+  cursor: pointer;
+  color: #eee;
+  box-shadow: 0 2px 5px #000;
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+  user-select: none;
+  min-height: 40px;
+  white-space: nowrap;
+}
+
+button:hover {
+  background-color: #6200ee;
+  box-shadow: 0 0 12px #bb86fc;
+  color: #fff;
+}
+
+button:active {
+  transform: translateY(1px);
+}
+
+.clear-btn {
+  background: #b00020;
+  color: #fff;
+  box-shadow: 0 2px 8px #6f0000;
+}
+
+.clear-btn:hover {
+  background: #cf6679;
+  box-shadow: 0 0 10px #cf6679;
+}
+
+.copy-btn {
+  background: #018786;
+  color: #fff;
+  box-shadow: 0 2px 8px #004c4c;
+}
+
+.copy-btn:hover {
+  background: #03dac5;
+  box-shadow: 0 0 10px #03dac5;
+}
+
+.output-section {
+  flex: 1;
+  background-color: #2c2c2c;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: inset 0 0 10px #000;
+  color: #eee;
+  display: flex;
+  flex-direction: column;
+}
+
+h3 {
+  margin-top: 0;
+  margin-bottom: 10px;
+  user-select: none;
+  color: #bb86fc;
+}
+
+.output {
+  flex: 1;
+  background-color: #121212;
+  border: 2px solid #bb86fc;
+  border-radius: 10px;
+  padding: 20px;
+  font-size: 1.4em;
+  overflow-x: auto;
+  color: #eee;
+  box-shadow: inset 0 2px 5px #000;
+}
+
+.output:empty::after {
+  content: "Your rendered math will appear here...";
+  color: #666;
+  font-style: italic;
+  font-size: 1em;
+}
+
+.status {
+  margin-top: 10px;
+  font-size: 0.9em;
+  color: #03dac5;
+  user-select: none;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.status.show {
+  opacity: 1;
+}
+
+/* Suggestions bar with all button categories */
+.suggestions {
+  margin-top: 20px;
+  background-color: #1f1f1f;
+  border-radius: 10px;
+  padding: 10px;
+  display: flex;
+  gap: 8px;
+  overflow-x: auto;
+  user-select: none;
+  box-shadow: 0 0 15px #000;
+  flex-wrap: nowrap;
+}
+
+.suggestions::-webkit-scrollbar {
+  height: 8px;
+}
+
+.suggestions::-webkit-scrollbar-track {
+  background: #121212;
+  border-radius: 8px;
+}
+
+.suggestions::-webkit-scrollbar-thumb {
+  background: #bb86fc;
+  border-radius: 8px;
+}
+
+.suggestions button {
+  flex: 0 0 auto;
+  background-color: #333;
+  color: #eee;
+  font-size: 0.9em;
+  padding: 8px 16px;
+  border-radius: 8px;
+  white-space: nowrap;
+  transition: background-color 0.3s ease;
+  box-shadow: 0 3px 5px #000;
+}
+
+.suggestions button:hover {
+  background-color: #6200ee;
+  color: #fff;
+  box-shadow: 0 0 12px #bb86fc;
+}
+
+/* Responsive */
+@media (max-width: 900px) {
+  .main-content {
+    flex-direction: column;
+    height: auto;
+  }
+  .editor-section, .output-section {
+    height: 300px;
   }
   .container {
-    display: flex;
-    height: 100vh;
+    height: auto;
   }
-  #editor {
-    width: 50%;
-    padding: 12px;
-    border-right: 1px solid #ccc;
-    font-size: 16px;
-    resize: none;
-  }
-  #preview {
-    width: 50%;
-    padding: 12px;
-    font-size: 20px;
-    line-height: 1.6;
-    white-space: pre-wrap; /* preserve line breaks */
-  }
-  .integral {
-    font-size: 28px;
-    display: inline-block;
-    position: relative;
-    vertical-align: middle;
-    margin: 0 6px;
-  }
-  .integral sub {
-    position: absolute;
-    top: 28px;
-    left: 4px;
-    font-size: 12px;
-  }
-  .integral sup {
-    position: absolute;
-    bottom: 28px;
-    left: 4px;
-    font-size: 12px;
-  }
-  .frac {
-    display: inline-block;
-    text-align: center;
-    vertical-align: middle;
-  }
-  .frac span {
-    display: block;
-    padding: 0 4px;
-  }
-  .frac .den {
-    border-top: 1px solid black;
-  }
-
-
+}

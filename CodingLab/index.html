@@ -1,17 +1,78 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Latex_editor</title>
-    <link rel="stylesheet" href="./index.css">
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>LaTeX Math Editor - Dark Theme</title>
+<link rel="stylesheet" href="./index.css" />
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" defer></script>
+<script src="./index.js" defer></script>
 </head>
 <body>
-     <div class="container">
-    <textarea id="editor" placeholder="Type math here..."></textarea>
-    <div id="preview"></div>
+<div class="container">
+  <h1>📐 LaTeX Math Editor (Dark Theme)</h1>
+  <div class="main-content">
+    <section class="editor-section">
+      <h3>LaTeX Input:</h3>
+      <textarea id="input" placeholder="Type LaTeX math here..."></textarea>
+      <div class="controls">
+        <button class="clear-btn" id="clearBtn">Clear</button>
+        <button class="copy-btn" id="copyBtn">Copy LaTeX</button>
+      </div>
+    </section>
+    <section class="output-section">
+      <h3>Rendered Output:</h3>
+      <div id="output" class="output" aria-live="polite" aria-label="Rendered math output"></div>
+      <div id="status" class="status" role="alert"></div>
+    </section>
   </div>
-  <script src="./index.js"></script>
+  
+  <div class="suggestions" aria-label="LaTeX Quick Insert Buttons">
+    <!-- Basic Operations -->
+    <button data-latex="+">+</button>
+    <button data-latex="−">−</button>
+    <button data-latex="\\times">×</button>
+    <button data-latex="\\div">÷</button>
+    <button data-latex="=">=</button>
+    <button data-latex="\\neq">≠</button>
+
+    <!-- Calculus -->
+    <button data-latex="\\int_{}^{}">∫</button>
+    <button data-latex="\\sum_{}^{}">∑</button>
+    <button data-latex="\\lim_{x \\to }">lim</button>
+    <button data-latex="\\frac{}{}">⁄</button>
+    <button data-latex="\\partial">∂</button>
+    <button data-latex="\\nabla">∇</button>
+
+    <!-- Functions -->
+    <button data-latex="\\sin">sin</button>
+    <button data-latex="\\cos">cos</button>
+    <button data-latex="\\tan">tan</button>
+    <button data-latex="\\log">log</button>
+    <button data-latex="\\ln">ln</button>
+    <button data-latex="\\exp">exp</button>
+
+    <!-- Greek Letters -->
+    <button data-latex="\\alpha">α</button>
+    <button data-latex="\\beta">β</button>
+    <button data-latex="\\gamma">γ</button>
+    <button data-latex="\\delta">δ</button>
+    <button data-latex="\\epsilon">ε</button>
+    <button data-latex="\\theta">θ</button>
+    <button data-latex="\\lambda">λ</button>
+    <button data-latex="\\pi">π</button>
+    <button data-latex="\\sigma">σ</button>
+    <button data-latex="\\omega">ω</button>
+
+    <!-- Symbols -->
+    <button data-latex="\\infty">∞</button>
+    <button data-latex="\\forall">∀</button>
+    <button data-latex="\\exists">∃</button>
+    <button data-latex="\\approx">≈</button>
+    <button data-latex="\\neq">≠</button>
+    <button data-latex="\\leq">≤</button>
+    <button data-latex="\\geq">≥</button>
+  </div>
+</div>
 </body>
 </html>
-
