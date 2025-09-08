@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>LaTeX Math Editor - Theme Switcher</title>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+  <style>
+    :root {
+      --bg-color: #121212;
+      --container-bg: #1e1e1e;
+      --text-color: #eee;
+      --highlight-color: #bb86fc;
+      --output-border: #bb86fc;
+      --textarea-bg: #121212;
+      --suggestion-bg: #1f1f1f;
+      --suggestion-thumb: #bb86fc;
+    }
+
+    body.light-theme {
+      --bg-color: #f4f4f4;
+      --container-bg: #ffffff;
+      --text-color: #000;
+      --highlight-color: #0057ff;
+      --output-border: #0057ff;
+      --textarea-bg: #ffffff;
+      --suggestion-bg: #eaeaea;
+      --suggestion-thumb: #0057ff;
+    }
+
+    body.blue-theme {
+      --bg-color: #0d1b2a;
+      --container-bg: #1b263b;
+      --text-color: #e0e1dd;
+      --highlight-color: #00b4d8;
+      --output-border: #00b4d8;
+      --textarea-bg: #0d1b2a;
+      --suggestion-bg: #1b263b;
+      --suggestion-thumb: #00b4d8;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      margin: 0;
+      padding: 20px;
+      background-color: var(--bg-color);
+      color: var(--text-color);
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      min-height: 100vh;
+      transition: background-color 0.3s ease, color 0.3s ease;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 1100px;
+      background-color: var(--container-bg);
+      border-radius: 12px;
+      padding: 20px;
+      box-shadow: 0 0 20px #000;
+      display: flex;
+      flex-direction: column;
+      height: 90vh;
+    }
+
+    h1 {
+      text-align: center;
+      font-weight: 700;
+      margin-bottom: 20px;
+      color: var(--highlight-color);
+      user-select: none;
+    }
+
+    .theme-switcher {
+      text-align: center;
+      margin-bottom: 10px;
+    }
+
+    .theme-switcher select {
+      padding: 6px 10px;
+      border-radius: 6px;
+      font-size: 1em;
+    }
+
+    .main-content {
+      flex: 1;
+      display: flex;
+      gap: 20px;
+      overflow: hidden;
+      border-radius: 10px;
+    }
+
+    .editor-section,
+    .output-section {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      background-color: var(--textarea-bg);
+      padding: 15px;
+      border-radius: 10px;
+      box-shadow: inset 0 0 10px #000;
+    }
+
+    textarea {
+      flex: 1;
+      font-family: 'Courier New', monospace;
+      font-size: 1.1em;
+      background-color: var(--textarea-bg);
+      color: var(--text-color);
+      border: 2px solid var(--highlight-color);
+      border-radius: 10px;
+      padding: 15px;
+      resize: vertical;
+      transition: border-color 0.3s ease;
+    }
+
+    textarea:focus {
+      outline: none;
+      border-color: var(--highlight-color);
+      box-shadow: 0 0 10px var(--highlight-color);
+    }
+
+    .controls {
+      margin-top: 15px;
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    button {
+      background: #3a3a3a;
+      border: none;
+      border-radius: 8px;
+      padding: 10px 15px;
+      font-size: 0.9em;
+      cursor: pointer;
+      color: #eee;
+      box-shadow: 0 2px 5px #000;
+      transition: background-color 0.3s ease, box-shadow 0.3s ease;
+      user-select: none;
+      min-height: 40px;
+      white-space: nowrap;
+    }
+
+    button:hover {
+      background-color: var(--highlight-color);
+      box-shadow: 0 0 12px var(--highlight-color);
+      color: #fff;
+    }
+
+    .clear-btn {
+      background: #b00020;
+    }
+
+    .copy-btn {
+      background: #018786;
+    }
+
+    .output {
+      flex: 1;
+      background-color: var(--textarea-bg);
+      border: 2px solid var(--output-border);
+      border-radius: 10px;
+      padding: 20px;
+      font-size: 1.4em;
+      overflow-x: auto;
+      box-shadow: inset 0 2px 5px #000;
+    }
+
+    .output:empty::after {
+      content: "Your rendered math will appear here...";
+      color: #888;
+      font-style: italic;
+      font-size: 1em;
+    }
+
+    .status {
+      margin-top: 10px;
+      font-size: 0.9em;
+      color: var(--highlight-color);
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    .status.show {
+      opacity: 1;
+    }
+
+    .suggestions {
+      margin-top: 20px;
+      background-color: var(--suggestion-bg);
+      border-radius: 10px;
+      padding: 10px;
+      display: flex;
+      gap: 8px;
+      overflow-x: auto;
+      user-select: none;
+      box-shadow: 0 0 15px #000;
+      flex-wrap: nowrap;
+    }
+
+    .suggestions::-webkit-scrollbar {
+      height: 8px;
+    }
+
+    .suggestions::-webkit-scrollbar-thumb {
+      background: var(--suggestion-thumb);
+      border-radius: 8px;
+    }
+
+    .suggestions button {
+      background-color: #333;
+    }
+
+    @media (max-width: 900px) {
+      .main-content {
+        flex-direction: column;
+        height: auto;
+      }
+      .editor-section,
+      .output-section {
+        height: 300px;
+      }
+      .container {
+        height: auto;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>LaTeX Math Editor</h1>
+
+    <div class="theme-switcher">
+      <label for="theme">Theme:</label>
+      <select id="theme" onchange="changeTheme(this.value)">
+        <option value="dark">Dark</option>
+        <option value="blue">Blue</option>
+        <option value="light">Light</option>
+      </select>
+    </div>
+
+    <div class="main-content">
+      <section class="editor-section">
+        <h3>LaTeX Input:</h3>
+        <textarea id="input" placeholder="Type LaTeX math here..."></textarea>
+        <div class="controls">
+          <button class="clear-btn" onclick="clearInput()">Clear</button>
+          <button class="copy-btn" onclick="copyLatex()">Copy LaTeX</button>
+        </div>
+      </section>
+
+      <section class="output-section">
+        <h3>Rendered Output:</h3>
+        <div id="output" class="output" aria-live="polite"></div>
+        <div id="status" class="status" role="alert"></div>
+      </section>
+    </div>
+
+    <div class="suggestions">
+      <!-- Buttons omitted here for brevity (same as in your post) -->
+      <button onclick="insertLatex('\\frac{}{}')">⁄</button>
+      <button onclick="insertLatex('\\int_{}^{}')">∫</button>
+      <button onclick="insertLatex('\\sum_{}^{}')">∑</button>
+      <button onclick="insertLatex('\\sin')">sin</button>
+      <button onclick="insertLatex('\\alpha')">α</button>
+      <button onclick="insertLatex('\\infty')">∞</button>
+      <!-- Add all others as needed... -->
+    </div>
+  </div>
+
+  <script>
+    const input = document.getElementById('input');
+    const output = document.getElementById('output');
+    const status = document.getElementById('status');
+
+    function renderMath() {
+      const latex = input.value.trim();
+      if (latex) {
+        output.innerHTML = `\\[${latex}\\]`;
+        MathJax.typesetPromise([output]).catch(() => {
+          output.innerHTML = '<span style="color: red;">Error rendering LaTeX</span>';
+        });
+      } else {
+        output.innerHTML = '';
+      }
+    }
+
+    function insertLatex(snippet) {
+      const start = input.selectionStart;
+      const end = input.selectionEnd;
+      const text = input.value;
+      input.value = text.slice(0, start) + snippet + text.slice(end);
+
+      const cursorInsideBrackets = snippet.indexOf('{}');
+      if (cursorInsideBrackets !== -1) {
+        const cursorPos = start + cursorInsideBrackets + 1;
+        input.focus();
+        input.setSelectionRange(cursorPos, cursorPos);
+      } else {
+        const newPos = start + snippet.length;
+        input.focus();
+        input.setSelectionRange(newPos, newPos);
+      }
+
+      renderMath();
+    }
+
+    function clearInput() {
+      input.value = '';
+      renderMath();
+      input.focus();
+    }
+
+    function copyLatex() {
+      if (!input.value.trim()) {
+        showStatus('Nothing to copy.', 'error');
+        return;
+      }
+
+      navigator.clipboard.writeText(input.value).then(() => {
+        showStatus('LaTeX copied!', 'success');
+      }).catch(() => {
+        input.select();
+        document.execCommand('copy');
+        showStatus('LaTeX copied!', 'success');
+      });
+    }
+
+    function showStatus(msg, type) {
+      status.textContent = msg;
+      status.style.color = type === 'success' ? 'var(--highlight-color)' : 'red';
+      status.classList.add('show');
+      setTimeout(() => status.classList.remove('show'), 2000);
+    }
+
+    function changeTheme(theme) {
+      document.body.className = ''; // clear all themes
+      if (theme === 'light') document.body.classList.add('light-theme');
+      else if (theme === 'blue') document.body.classList.add('blue-theme');
+      // dark is default (no class needed)
+    }
+
+    input.addEventListener('input', renderMath);
+    input.addEventListener('keydown', (e) => {
+      if (e.ctrlKey && e.key === 'Enter') renderMath();
+    });
+
+    renderMath(); // initial
+  </script>
+</body>
+</html>
